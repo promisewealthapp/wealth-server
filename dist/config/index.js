@@ -35,4 +35,5 @@ exports.default = {
     oneSignalApi: process.env.ONESIGNAL_API,
     openAiApi: process.env.OPEN_AI_API,
     openAiAssistant_id: process.env.OPEN_AI_ASSISTANT_ID,
+    googleAi: process.env.GOOGLE_AI,
 };

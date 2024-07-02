@@ -51,12 +51,13 @@ const paystack = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 
     });
 }));
 const aiSupport = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = req.user;
+    // const user = req.user as JwtPayload;
     const message = req.body.message;
     if (!message) {
         throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Please provide message');
     }
-    const data = yield webhook_service_1.webHookService.aiSupport(user.userId, message);
+    // const data = await webHookService.aiSupport(user.userId, message);
+    const data = yield webhook_service_1.webHookService.googleAiSupport(message);
     // const result = await webHookService.payStack(UserData);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (0, sendResponse_1.default)(res, {

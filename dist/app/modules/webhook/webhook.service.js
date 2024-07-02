@@ -13,11 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.webHookService = void 0;
+const generative_ai_1 = require("@google/generative-ai");
 const http_status_1 = __importDefault(require("http-status"));
 const openai_1 = __importDefault(require("openai"));
 const config_1 = __importDefault(require("../../../config"));
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
+const webhook_utils_1 = require("./webhook.utils");
+const genAI = new generative_ai_1.GoogleGenerativeAI(config_1.default.googleAi);
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const payStackUserPaySuccess = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     const isUserExist = yield prisma_1.default.user.findUnique({ where: { id: userId } });
@@ -102,7 +105,30 @@ const aiSupport = (userId, message) => __awaiter(void 0, void 0, void 0, functio
     }
     //   return datas;
 });
+const googleAiSupport = (message) => __awaiter(void 0, void 0, void 0, function* () {
+    const faq = yield prisma_1.default.faq.findMany();
+    const strFaq = faq
+        .map((single, i) => {
+        return `
+    ${28 + i}. ${single.question}.
+    Ans: ${single.ans}
+    `;
+    })
+        .join('\n');
+    console.log(strFaq);
+    const model = genAI.getGenerativeModel({
+        model: 'gemini-1.5-flash',
+        systemInstruction: (0, webhook_utils_1.AiInstruction)(strFaq),
+    });
+    const result = yield model.generateContent(`
+ 
+  question: ${message}
+  `);
+    // console.log(result.response.text());
+    return result.response.text();
+});
 exports.webHookService = {
     payStackUserPaySuccess,
     aiSupport,
+    googleAiSupport,
 };

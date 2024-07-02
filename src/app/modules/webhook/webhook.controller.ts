@@ -1,6 +1,5 @@
 import { Request, RequestHandler, Response } from 'express';
 import httpStatus from 'http-status';
-import { JwtPayload } from 'jsonwebtoken';
 import ApiError from '../../../errors/ApiError';
 import { EPaymentType } from '../../../interfaces/common';
 import catchAsync from '../../../shared/catchAsync';
@@ -42,12 +41,13 @@ const paystack: RequestHandler = catchAsync(
 );
 const aiSupport: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const user = req.user as JwtPayload;
+    // const user = req.user as JwtPayload;
     const message = req.body.message;
     if (!message) {
       throw new ApiError(httpStatus.BAD_REQUEST, 'Please provide message');
     }
-    const data = await webHookService.aiSupport(user.userId, message);
+    // const data = await webHookService.aiSupport(user.userId, message);
+    const data = await webHookService.googleAiSupport(message);
     // const result = await webHookService.payStack(UserData);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     sendResponse<any>(res, {
