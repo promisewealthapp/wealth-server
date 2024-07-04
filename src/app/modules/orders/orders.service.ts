@@ -123,12 +123,7 @@ const createOrders = async (payload: Orders): Promise<Orders | null> => {
       flippingId: payload.flippingId,
     },
   });
-  if (isOrderAlreadyExist) {
-    throw new ApiError(
-      httpStatus.BAD_REQUEST,
-      'Already order this item wait form confirmation'
-    );
-  }
+
   // if wealBank exits
   if (payload.wealthBankId) {
     if (payload.paymentType === EOrderPaymentType.paystack) {
@@ -144,7 +139,12 @@ const createOrders = async (payload: Orders): Promise<Orders | null> => {
       throw new ApiError(httpStatus.BAD_REQUEST, 'Bank id is not valid');
     }
   }
-
+  if (isOrderAlreadyExist && refName != EOrderRefName.crowdFund) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'Already order this item wait form confirmation'
+    );
+  }
   // for crowd Fund
   if (refName === EOrderRefName.crowdFund) {
     console.log('in crowd Fund');

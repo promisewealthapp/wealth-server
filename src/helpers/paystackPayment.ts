@@ -15,6 +15,7 @@ export const initiatePayment = async (
   orderId: string,
   callbackUrl?: string
 ) => {
+  console.log(callbackUrl);
   try {
     const response = await axios.post(
       'https://api.paystack.co/transaction/initialize',
@@ -23,7 +24,7 @@ export const initiatePayment = async (
         amount: amount * 100,
         email,
         reference,
-        callback_url: callbackUrl,
+        // callback_url: callbackUrl,
         metadata: {
           payment_type: paymentType,
           orderId,

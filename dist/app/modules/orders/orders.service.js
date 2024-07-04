@@ -125,9 +125,6 @@ const createOrders = (payload) => __awaiter(void 0, void 0, void 0, function* ()
             flippingId: payload.flippingId,
         },
     });
-    if (isOrderAlreadyExist) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Already order this item wait form confirmation');
-    }
     // if wealBank exits
     if (payload.wealthBankId) {
         if (payload.paymentType === client_1.EOrderPaymentType.paystack) {
@@ -139,6 +136,9 @@ const createOrders = (payload) => __awaiter(void 0, void 0, void 0, function* ()
         if (!isBankIdExits) {
             throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Bank id is not valid');
         }
+    }
+    if (isOrderAlreadyExist && refName != client_1.EOrderRefName.crowdFund) {
+        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Already order this item wait form confirmation');
     }
     // for crowd Fund
     if (refName === client_1.EOrderRefName.crowdFund) {
