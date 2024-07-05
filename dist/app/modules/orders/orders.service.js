@@ -39,7 +39,7 @@ const orders_constant_1 = require("./orders.constant");
 const orders_multiHandler_1 = require("./orders.multiHandler");
 const getAllOrders = (filters, paginationOptions) => __awaiter(void 0, void 0, void 0, function* () {
     const { page, limit, skip } = paginationHelper_1.paginationHelpers.calculatePagination(paginationOptions);
-    const { searchTerm } = filters, filterData = __rest(filters, ["searchTerm"]);
+    const { searchTerm, buyerEmail } = filters, filterData = __rest(filters, ["searchTerm", "buyerEmail"]);
     const andCondition = [];
     if (searchTerm) {
         const searchAbleFields = orders_constant_1.ordersSearchableFields.map(single => {
@@ -53,6 +53,15 @@ const getAllOrders = (filters, paginationOptions) => __awaiter(void 0, void 0, v
         });
         andCondition.push({
             OR: searchAbleFields,
+        });
+    }
+    if (buyerEmail) {
+        andCondition.push({
+            AND: {
+                orderBy: {
+                    email: buyerEmail,
+                },
+            },
         });
     }
     if (Object.keys(filters).length) {

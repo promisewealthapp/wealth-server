@@ -28,7 +28,7 @@ const getAllOrders = async (
   const { page, limit, skip } =
     paginationHelpers.calculatePagination(paginationOptions);
 
-  const { searchTerm, ...filterData } = filters;
+  const { searchTerm, buyerEmail, ...filterData } = filters;
 
   const andCondition = [];
 
@@ -44,6 +44,15 @@ const getAllOrders = async (
     });
     andCondition.push({
       OR: searchAbleFields,
+    });
+  }
+  if (buyerEmail) {
+    andCondition.push({
+      AND: {
+        orderBy: {
+          email: buyerEmail,
+        },
+      },
     });
   }
   if (Object.keys(filters).length) {

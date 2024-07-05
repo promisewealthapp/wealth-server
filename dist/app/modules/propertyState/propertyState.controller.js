@@ -26,7 +26,7 @@ const createPropertyState = (0, catchAsync_1.default)((req, res) => __awaiter(vo
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: 'PropertyState Created successfully!',
+        message: 'Property state Created successfully!',
         data: result,
     });
 }));

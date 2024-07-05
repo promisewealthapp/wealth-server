@@ -10,4 +10,5 @@ exports.ordersFilterAbleFields = [
     'flippingId',
     'status',
     'paymentType',
+    'buyerEmail',
 ];
