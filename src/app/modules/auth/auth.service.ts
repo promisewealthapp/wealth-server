@@ -222,8 +222,8 @@ const sendForgotEmail = async (
   await sendEmail(
     { to: email },
     {
-      subject: EmailTemplates.verify.subject,
-      html: EmailTemplates.verify.html({ token: otp }),
+      subject: EmailTemplates.verifyForgot.subject,
+      html: EmailTemplates.verifyForgot.html({ token: otp }),
     }
   );
   return {

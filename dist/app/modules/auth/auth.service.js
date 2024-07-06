@@ -203,8 +203,8 @@ const sendForgotEmail = (givenEmail) => __awaiter(void 0, void 0, void 0, functi
         throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Cannot create verification Otp');
     }
     yield (0, sendEmail_1.default)({ to: email }, {
-        subject: EmailTemplates_1.default.verify.subject,
-        html: EmailTemplates_1.default.verify.html({ token: otp }),
+        subject: EmailTemplates_1.default.verifyForgot.subject,
+        html: EmailTemplates_1.default.verifyForgot.html({ token: otp }),
     });
     return {
         otp,
