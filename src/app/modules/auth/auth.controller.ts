@@ -91,6 +91,29 @@ const sendForgotEmail: RequestHandler = catchAsync(
     });
   }
 );
+const sendDeleteUserEmail: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const { email } = req.params;
+    const output = await AuthService.sendForgotEmail(email || '');
+    const { otp } = output;
+
+    // set refresh token into cookie
+    const cookieOptions = {
+      secure: config.env === 'production',
+      httpOnly: true,
+    };
+
+    res.cookie('refreshToken', refreshToken, cookieOptions);
+    sendResponse<{ otp: number }>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Opt send successfully',
+      data: {
+        otp,
+      },
+    });
+  }
+);
 const loginUser = catchAsync(async (req: Request, res: Response) => {
   const loginInfo = req.body;
   const result = await AuthService.loginUser(loginInfo);
@@ -179,6 +202,27 @@ const verifyForgotToken = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const verifyDeleteUserToken = catchAsync(
+  async (req: Request, res: Response) => {
+    const { token, email } = req.body;
+    if (!token) {
+      new ApiError(httpStatus.BAD_REQUEST, 'Token not found');
+    }
+    if (!email) {
+      new ApiError(httpStatus.BAD_REQUEST, 'Email not found');
+    }
+    const result = await AuthService.verifyDeleteUserToken(token, email);
+
+    // set refresh token
+
+    sendResponse<{ token: number; isValidate: boolean }>(res, {
+      statusCode: 200,
+      success: true,
+      message: 'Token verify successfully',
+      data: result,
+    });
+  }
+);
 
 const changePassword: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
@@ -210,4 +254,6 @@ export const AuthController = {
   sendForgotEmail,
   verifyForgotToken,
   changePassword,
+  sendDeleteUserEmail,
+  verifyDeleteUserToken,
 };

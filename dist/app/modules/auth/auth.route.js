@@ -16,7 +16,9 @@ router.post('/signin', (0, validateRequest_1.default)(auth_validation_1.AuthVali
 router.post('/refresh-token', (0, validateRequest_1.default)(auth_validation_1.AuthValidation.refreshTokenZodSchema), auth_controller_1.AuthController.refreshToken);
 router.post('/verify-signup-token', (0, validateRequest_1.default)(auth_validation_1.AuthValidation.verifyToken), (0, auth_1.default)(client_1.UserRole.user, client_1.UserRole.superAdmin), auth_controller_1.AuthController.verifySignupToken);
 router.post('/verify-forgot-token', (0, validateRequest_1.default)(auth_validation_1.AuthValidation.verifyForgotToken), auth_controller_1.AuthController.verifyForgotToken);
+router.post('/verify-delete-user-token-and-delete-user', (0, validateRequest_1.default)(auth_validation_1.AuthValidation.verifyForgotToken), auth_controller_1.AuthController.verifyDeleteUserToken);
 router.post('/change-password', (0, validateRequest_1.default)(auth_validation_1.AuthValidation.changePassword), auth_controller_1.AuthController.changePassword);
 router.post('/resend-signup-email/:email', auth_controller_1.AuthController.resendEmail);
 router.post('/send-forgot-email/:email', auth_controller_1.AuthController.sendForgotEmail);
+router.post('/send-delete-user-email/:email', auth_controller_1.AuthController.sendDeleteUserEmail);
 exports.AuthRoutes = router;

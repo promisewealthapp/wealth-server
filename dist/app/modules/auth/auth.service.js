@@ -210,6 +210,39 @@ const sendForgotEmail = (givenEmail) => __awaiter(void 0, void 0, void 0, functi
         otp,
     };
 });
+const sendDeleteUserEmail = (givenEmail) => __awaiter(void 0, void 0, void 0, function* () {
+    const isUserExist = yield prisma_1.default.user.findUnique({
+        where: { email: givenEmail },
+    });
+    if (!isUserExist) {
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'User not found');
+    }
+    const otp = (0, generatateOpt_1.default)();
+    //create access token & refresh token
+    const { email } = isUserExist;
+    const verificationOtp = yield prisma_1.default.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+        yield tx.verificationOtp.deleteMany({
+            where: { ownById: isUserExist.id },
+        });
+        return yield tx.verificationOtp.create({
+            data: {
+                ownById: isUserExist.id,
+                otp: otp,
+                type: client_1.EVerificationOtp.deleteUser,
+            },
+        });
+    }));
+    if (!verificationOtp.id) {
+        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Cannot create verification Otp');
+    }
+    yield (0, sendEmail_1.default)({ to: email }, {
+        subject: EmailTemplates_1.default.deleteUser.subject,
+        html: EmailTemplates_1.default.deleteUser.html({ token: otp }),
+    });
+    return {
+        otp,
+    };
+});
 const verifySignupToken = (token, userId) => __awaiter(void 0, void 0, void 0, function* () {
     //verify token
     // invalid token - synchronous
@@ -253,6 +286,44 @@ const verifySignupToken = (token, userId) => __awaiter(void 0, void 0, void 0, f
     return {
         accessToken: newAccessToken,
         user: rest,
+    };
+});
+const verifyDeleteUserToken = (token, userEmail) => __awaiter(void 0, void 0, void 0, function* () {
+    const isUserExist = yield prisma_1.default.user.findUnique({
+        where: { email: userEmail },
+    });
+    if (!isUserExist) {
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'User does not exist');
+    }
+    // check is token match and valid
+    const isTokenExit = yield prisma_1.default.verificationOtp.findFirst({
+        where: {
+            ownById: isUserExist.id,
+            otp: token,
+            type: client_1.EVerificationOtp.deleteUser,
+        },
+    });
+    if (!isTokenExit) {
+        throw new ApiError_1.default(http_status_1.default.NOT_ACCEPTABLE, 'OTP is not match');
+    }
+    // check time validation
+    if ((0, generatateOpt_1.checkTimeOfOTP)(isTokenExit.createdAt)) {
+        throw new ApiError_1.default(http_status_1.default.NOT_ACCEPTABLE, 'OPT is expired!');
+    }
+    // delete all otp user
+    const result = yield prisma_1.default.user.delete({
+        where: {
+            id: isUserExist.id,
+        },
+    });
+    if (!result.id) {
+        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Failed to delete');
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
+    return {
+        token,
+        isValidate: true,
+        deletedUserId: result.id,
     };
 });
 const verifyForgotToken = (token, userEmail) => __awaiter(void 0, void 0, void 0, function* () {
@@ -366,4 +437,6 @@ exports.AuthService = {
     sendForgotEmail,
     verifyForgotToken,
     changePassword,
+    sendDeleteUserEmail,
+    verifyDeleteUserToken,
 };

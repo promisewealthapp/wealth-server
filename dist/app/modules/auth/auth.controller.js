@@ -94,6 +94,25 @@ const sendForgotEmail = (0, catchAsync_1.default)((req, res) => __awaiter(void 0
         },
     });
 }));
+const sendDeleteUserEmail = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.params;
+    const output = yield auth_service_1.AuthService.sendForgotEmail(email || '');
+    const { otp } = output;
+    // set refresh token into cookie
+    const cookieOptions = {
+        secure: config_1.default.env === 'production',
+        httpOnly: true,
+    };
+    res.cookie('refreshToken', refreshToken, cookieOptions);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Opt send successfully',
+        data: {
+            otp,
+        },
+    });
+}));
 const loginUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const loginInfo = req.body;
     const result = yield auth_service_1.AuthService.loginUser(loginInfo);
@@ -166,6 +185,23 @@ const verifyForgotToken = (0, catchAsync_1.default)((req, res) => __awaiter(void
         data: result,
     });
 }));
+const verifyDeleteUserToken = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { token, email } = req.body;
+    if (!token) {
+        new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Token not found');
+    }
+    if (!email) {
+        new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'Email not found');
+    }
+    const result = yield auth_service_1.AuthService.verifyDeleteUserToken(token, email);
+    // set refresh token
+    (0, sendResponse_1.default)(res, {
+        statusCode: 200,
+        success: true,
+        message: 'Token verify successfully',
+        data: result,
+    });
+}));
 const changePassword = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
     const output = yield auth_service_1.AuthService.changePassword(data);
@@ -191,4 +227,6 @@ exports.AuthController = {
     sendForgotEmail,
     verifyForgotToken,
     changePassword,
+    sendDeleteUserEmail,
+    verifyDeleteUserToken,
 };
