@@ -242,7 +242,7 @@ const sendDeleteUserEmail = async (
   const otp = generateOTP();
   //create access token & refresh token
   const { email } = isUserExist;
-
+  console.log(email);
   const verificationOtp = await prisma.$transaction(async tx => {
     await tx.verificationOtp.deleteMany({
       where: { ownById: isUserExist.id },
@@ -347,7 +347,7 @@ const verifyDeleteUserToken = async (
   if (!isUserExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
   }
-
+  console.log(token, userEmail);
   // check is token match and valid
   const isTokenExit = await prisma.verificationOtp.findFirst({
     where: {

@@ -94,8 +94,7 @@ const sendForgotEmail: RequestHandler = catchAsync(
 const sendDeleteUserEmail: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { email } = req.params;
-    const output = await AuthService.sendForgotEmail(email || '');
-    const { otp } = output;
+    await AuthService.sendDeleteUserEmail(email || '');
 
     // set refresh token into cookie
     const cookieOptions = {
@@ -104,12 +103,12 @@ const sendDeleteUserEmail: RequestHandler = catchAsync(
     };
 
     res.cookie('refreshToken', refreshToken, cookieOptions);
-    sendResponse<{ otp: number }>(res, {
+    sendResponse<{ isOtpSend: boolean }>(res, {
       statusCode: httpStatus.OK,
       success: true,
       message: 'Opt send successfully',
       data: {
-        otp,
+        isOtpSend: true,
       },
     });
   }

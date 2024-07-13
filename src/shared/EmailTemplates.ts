@@ -118,14 +118,14 @@ const EmailTemplates = {
                 <a href="#" class="btn">${data.token}</a>
                 <p class="end">
                     This is an automatically generated email please do not reply to this email. 
-                    If you face any issues, please contact us at support@wealthapp.com
+                    If you face any issues, please contact us at support@wealthapp.live
                 </p>
                 <hr>
                 <div class="social-icons">
                     <span><a href="#"><i class="fa-brands fa-instagram"></i></a></span>
                     <span><a href="#"><i class="fa-brands fa-facebook"></i></a></span>
                 </div>
-                <p class="end">Copyright &copy; 2024 Wealthapp Ltd.</p>
+                <p class="end">Copyright &copy; 2024 Wealth App.</p>
             </div>
         </div>
     </div>
@@ -239,14 +239,14 @@ const EmailTemplates = {
                       <a href="#" class="btn">${data.token}</a>
                       <p class="end">
                           This is an automatically generated email please do not reply to this email. 
-                          If you face any issues, please contact us at support@wealthapp.com
+                          If you face any issues, please contact us at support@wealthapp.live
                       </p>
                       <hr>
                       <div class="social-icons">
                           <span><a href="#"><i class="fa-brands fa-instagram"></i></a></span>
                           <span><a href="#"><i class="fa-brands fa-facebook"></i></a></span>
                       </div>
-                      <p class="end">Copyright &copy; 2024 WealthApp Ltd.</p>
+                      <p class="end">Copyright &copy; 2024 Wealth App.</p>
                   </div>
               </div>
           </div>
@@ -360,14 +360,14 @@ const EmailTemplates = {
                       <a href="#" class="btn">${data.token}</a>
                       <p class="end">
                           This is an automatically generated email please do not reply to this email. 
-                          If you face any issues, please contact us at support@wealthapp.com
+                          If you face any issues, please contact us at support@wealthapp.live
                       </p>
                       <hr>
                       <div class="social-icons">
                           <span><a href="#"><i class="fa-brands fa-instagram"></i></a></span>
                           <span><a href="#"><i class="fa-brands fa-facebook"></i></a></span>
                       </div>
-                      <p class="end">Copyright &copy; 2024 WealthApp Ltd.</p>
+                      <p class="end">Copyright &copy; 2024 Wealth App.</p>
                   </div>
               </div>
           </div>
@@ -486,14 +486,14 @@ const EmailTemplates = {
                 <a href="#" class="btn">View</a>
                 <p class="end">
                     This is an automatically generated email please do not reply to this email. 
-                    If you face any issues, please contact us at support@wealthapp.com
+                    If you face any issues, please contact us at support@wealthapp.live
                 </p>
                 <hr>
                 <div class="social-icons">
                     <span><a href="#"><i class="fa-brands fa-instagram"></i></a></span>
                     <span><a href="#"><i class="fa-brands fa-facebook"></i></a></span>
                 </div>
-                <p class="end">Copyright &copy; 2024 WealthApp Ltd.</p>
+                <p class="end">Copyright &copy; 2024 Wealth App.</p>
             </div>
         </div>
     </div>
@@ -610,14 +610,14 @@ const EmailTemplates = {
                     <a href="#" class="btn">View</a>
                     <p class="end">
                         This is an automatically generated email please do not reply to this email. 
-                        If you face any issues, please contact us at support@wealthapp.com
+                        If you face any issues, please contact us at support@wealthapp.live
                     </p>
                     <hr>
                     <div class="social-icons">
                         <span><a href="#"><i class="fa-brands fa-instagram"></i></a></span>
                         <span><a href="#"><i class="fa-brands fa-facebook"></i></a></span>
                     </div>
-                    <p class="end">Copyright &copy; 2024 WealthApp Ltd.</p>
+                    <p class="end">Copyright &copy; 2024 Wealth App.</p>
                 </div>
             </div>
         </div>
