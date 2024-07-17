@@ -1,5 +1,6 @@
 import { Request, RequestHandler, Response } from 'express';
 import httpStatus from 'http-status';
+import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { EPaymentType } from '../../../interfaces/common';
 import catchAsync from '../../../shared/catchAsync';
@@ -58,8 +59,20 @@ const aiSupport: RequestHandler = catchAsync(
     });
   }
 );
+const dollarRate: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    sendResponse<any>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'successfull!',
+      data: { dollarRate: config.dollarRate },
+    });
+  }
+);
 
 export const webHookController = {
   paystack,
   aiSupport,
+  dollarRate,
 };

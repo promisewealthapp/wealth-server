@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.webHookController = void 0;
 const http_status_1 = __importDefault(require("http-status"));
+const config_1 = __importDefault(require("../../../config"));
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 const common_1 = require("../../../interfaces/common");
 const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
@@ -67,7 +68,17 @@ const aiSupport = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
         data,
     });
 }));
+const dollarRate = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'successfull!',
+        data: { dollarRate: config_1.default.dollarRate },
+    });
+}));
 exports.webHookController = {
     paystack,
     aiSupport,
+    dollarRate,
 };

@@ -220,6 +220,7 @@ const sendDeleteUserEmail = (givenEmail) => __awaiter(void 0, void 0, void 0, fu
     const otp = (0, generatateOpt_1.default)();
     //create access token & refresh token
     const { email } = isUserExist;
+    console.log(email);
     const verificationOtp = yield prisma_1.default.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
         yield tx.verificationOtp.deleteMany({
             where: { ownById: isUserExist.id },
@@ -295,6 +296,7 @@ const verifyDeleteUserToken = (token, userEmail) => __awaiter(void 0, void 0, vo
     if (!isUserExist) {
         throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'User does not exist');
     }
+    console.log(token, userEmail);
     // check is token match and valid
     const isTokenExit = yield prisma_1.default.verificationOtp.findFirst({
         where: {

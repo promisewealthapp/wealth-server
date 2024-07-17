@@ -25,6 +25,7 @@ const getAllPromotion = () => __awaiter(void 0, void 0, void 0, function* () {
             title: true,
             streetLocation: true,
             thumbnail: true,
+            description: true,
             location: true,
             interesteds: {
                 select: {
@@ -32,6 +33,8 @@ const getAllPromotion = () => __awaiter(void 0, void 0, void 0, function* () {
                         select: {
                             profileImg: true,
                             id: true,
+                            name: true,
+                            email: true,
                         },
                     },
                 },

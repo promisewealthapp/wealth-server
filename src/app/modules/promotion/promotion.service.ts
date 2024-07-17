@@ -12,6 +12,7 @@ const getAllPromotion = async (): Promise<any[]> => {
       title: true,
       streetLocation: true,
       thumbnail: true,
+      description: true,
       location: true,
       interesteds: {
         select: {
@@ -19,6 +20,8 @@ const getAllPromotion = async (): Promise<any[]> => {
             select: {
               profileImg: true,
               id: true,
+              name: true,
+              email: true,
             },
           },
         },

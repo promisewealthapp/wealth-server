@@ -14,7 +14,7 @@ const createValidation = zod_1.z.object({
             .optional()
             .nullable(),
         replyId: zod_1.z
-            .string({ required_error: 'image is required' })
+            .string({ required_error: 'ReplyId is required' })
             .optional()
             .nullable(),
         sendBy: zod_1.z

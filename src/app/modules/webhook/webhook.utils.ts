@@ -134,12 +134,57 @@ It also has a mission to build 100,000 homes in the next ten (10) years and to p
 
 
 `;
+const appDetails = `App Details
+1. Sign-in/Sign-up
+The sign-up process includes a form where users can register by providing their full name, email, phone number, and password. Upon submission, a request containing the user's information is forwarded to the admin for review. The admin holds the authority to approve or deny the user access to the application based on the provided information. This workflow ensures that user registrations undergo administrative scrutiny, maintaining the platform's integrity and security standards.
+
+2. Crowd Funding
+The crowdfunding page serves as a platform for administrators to showcase unfinished properties available for funding within the application. Members can contribute individually or in groups towards a property's target price. For instance, if an admin lists a property for $1000, four members can collectively fund it, and upon reaching the target, each contributor receives a percentage ownership of the property corresponding to their contribution.
+
+
+3. Current Location (Property Appriciation Graph)
+The current location page is designed to display all fully finished properties situated in Abuja, the company's headquarters. Users have the option to employ a search filter to refine properties based on their preferred locations. Each property is showcased on its dedicated page, providing users with an overview of its appearance, detailed information about features, amenities, and pricing. This structure streamlines the exploration and evaluation process for users interested in properties within the Abuja area, enabling them to make well-informed decisions about potential investments or acquisitions.
+In addition to providing detailed property information, the platform also offers insights into the price scaling of each listed property over the years. Users can access a graph illustrating the growth trajectory of property prices, allowing them to track changes and fluctuations in value over time. 
+
+
+
+
+4. Flipping(Buy and Sell)
+The property listing page empowers users/members to list properties for sale within the platform. Before listing a property, users are required to complete a form with essential information, including the property's location, relevant documents, images, price, and other pertinent details. Once the form is submitted, the admin reviews and approves or declines the listing request through the admin dashboard. This process ensures that only accurate and verified property listings are displayed on the platform, maintaining quality standards and enhancing user trust and satisfaction.
+
+4. Support(AI Automated Response)
+The chat page serves as a platform where users/members can engage in conversations with an AI equipped with automated responses tailored to address various inquiries. Utilizing the CEO's image as the chat avatar adds a personalized touch to the interaction. Members can ask questions and receive prompt, relevant responses from the AI, covering a range of topics and queries
+
+
+5. In-App Chat(Groupchat for Admins & Groupchat for members)
+The in-app chat feature includes group chats for both the platform admins and members. For the admins, there's a dedicated group chat where they can discuss platform-related matters. On the other hand, each property listed on the crowdfunding page hosts its own group chat, facilitating discussions between members and the super admin.
+
+Key conditions for the chat app are as follows:
+
+Super Admin's Profile Visibility:
+The super admin has exclusive access to view the profiles of members within the group chat.
+This feature enables the super admin to maintain oversight and manage interactions effectively.
+Member Profile Privacy:
+Members within the group chat cannot view each other's profiles.
+This privacy measure ensures that member information remains confidential and only accessible to the super admin.
+These conditions ensure a secure and controlled environment for communication within the platform. They maintain member privacy while granting necessary access to the super admin for oversight and management purposes.
+
+6. Promotions Page
+The promotions page empowers the admin to create and add promotional posts featuring additional information about upcoming events.
+
+
+8. Profile Page
+The profile page will contain the transaction history, properties bought by the members/users, properties listed by members/users,  profile setting, favourite properties e.t.c
+`;
 export const AiInstruction = (extra: string | undefined) => {
   return `
     You are a support assistance of a real state app name wealth promise land.
     here is full information of wealth promise land.
     "
     ${about}
+
+    Here is the information about the app: ${appDetails}
+
     "
 also you will answer the question of user based on this faq. if user asked out of this faq  you will tell them about the question a bit than tell them please asked query about wealth promise land or real state related query. 
 
