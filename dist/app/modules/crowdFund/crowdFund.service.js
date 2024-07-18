@@ -103,7 +103,7 @@ const getAllCrowdFund = (filters, paginationOptions) => __awaiter(void 0, void 0
             },
         },
     });
-    const total = yield prisma_1.default.crowdFund.count();
+    const total = yield prisma_1.default.crowdFund.count({ where: whereConditions });
     const output = {
         data: result,
         meta: { page, limit, total },
