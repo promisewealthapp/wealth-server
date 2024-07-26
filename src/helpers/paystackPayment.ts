@@ -17,7 +17,7 @@ export const initiatePayment = async (
   callbackUrl?: string
 ) => {
   console.log(
-    { mainamount: amount, amount: amount},
+    { mainamount: amount, amount: amount * 100 },
     'bro please show the console log about the payment amount'
   );
   try {
@@ -25,7 +25,7 @@ export const initiatePayment = async (
       'https://api.paystack.co/transaction/initialize',
       // Paystack uses values in kobo (1 NGN = 100 kobo)
       {
-        amount: amount ,
+        amount: amount * 100,
         email,
         reference,
         // callback_url: callbackUrl,
