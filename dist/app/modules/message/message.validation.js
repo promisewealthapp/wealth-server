@@ -49,7 +49,7 @@ const createValidation = zod_1.z.object({
                 id: zod_1.z.string(),
                 name: zod_1.z.string(),
                 role: zod_1.z.string(),
-                isChampion: zod_1.z.string(),
+                isChampion: zod_1.z.boolean(),
                 profileImg: zod_1.z.string(),
             })
                 .optional()
