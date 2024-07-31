@@ -232,7 +232,7 @@ const createOrders = async (payload: Orders): Promise<Orders | null> => {
     });
     if (payload.paymentType === EOrderPaymentType.paystack) {
       const payId = generateId();
-      if (amount * 100 > 2000000) {
+      if (amount >= 2000000) {
         throw new ApiError(
           httpStatus.BAD_REQUEST,
           '2000000NG is not allowed to paystack payment'

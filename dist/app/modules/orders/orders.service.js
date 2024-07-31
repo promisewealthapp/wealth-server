@@ -217,7 +217,7 @@ const createOrders = (payload) => __awaiter(void 0, void 0, void 0, function* ()
         });
         if (payload.paymentType === client_1.EOrderPaymentType.paystack) {
             const payId = (0, generateId_1.default)();
-            if (amount * 100 > 2000000) {
+            if (amount >= 2000000) {
                 throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, '2000000NG is not allowed to paystack payment');
             }
             const request = yield (0, paystackPayment_1.initiatePayment)(amount, isUserExist.email, payId, common_1.EPaymentType.order, result.id, config_1.default.frontendUrl);
