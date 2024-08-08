@@ -29,6 +29,7 @@ const http_status_1 = __importDefault(require("http-status"));
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const sendEmail_1 = __importDefault(require("../../../helpers/sendEmail"));
+const sendNotification_1 = __importDefault(require("../../../helpers/sendNotification"));
 const EmailTemplates_1 = __importDefault(require("../../../shared/EmailTemplates"));
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const flipping_constant_1 = require("./flipping.constant");
@@ -141,6 +142,9 @@ const getSingleFlipping = (id) => __awaiter(void 0, void 0, void 0, function* ()
     return result;
 });
 const updateFlipping = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    if (payload.status === 'available') {
+        (0, sendNotification_1.default)({ message: 'A new Flipping listed !' });
+    }
     const result = yield prisma_1.default.flipping.update({
         where: {
             id,

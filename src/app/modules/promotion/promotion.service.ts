@@ -1,6 +1,7 @@
 import { Promotion, PromotionInterest } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
+import sendNotification from '../../../helpers/sendNotification';
 import prisma from '../../../shared/prisma';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -37,6 +38,7 @@ const createPromotion = async (
   const newPromotion = await prisma.promotion.create({
     data: payload,
   });
+  sendNotification({ message: 'A new promotion listed !' });
   return newPromotion;
 };
 

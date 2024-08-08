@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PromotionService = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
+const sendNotification_1 = __importDefault(require("../../../helpers/sendNotification"));
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getAllPromotion = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -47,6 +48,7 @@ const createPromotion = (payload) => __awaiter(void 0, void 0, void 0, function*
     const newPromotion = yield prisma_1.default.promotion.create({
         data: payload,
     });
+    (0, sendNotification_1.default)({ message: 'A new promotion listed !' });
     return newPromotion;
 });
 const getSinglePromotion = (id) => __awaiter(void 0, void 0, void 0, function* () {

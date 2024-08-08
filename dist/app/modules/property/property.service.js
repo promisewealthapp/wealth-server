@@ -28,6 +28,7 @@ const client_1 = require("@prisma/client");
 const http_status_1 = __importDefault(require("http-status"));
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 const paginationHelper_1 = require("../../../helpers/paginationHelper");
+const sendNotification_1 = __importDefault(require("../../../helpers/sendNotification"));
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const property_constant_1 = require("./property.constant");
 const getAllProperty = (filters, paginationOptions) => __awaiter(void 0, void 0, void 0, function* () {
@@ -139,6 +140,7 @@ const createProperty = (payload) => __awaiter(void 0, void 0, void 0, function* 
             },
         },
     });
+    (0, sendNotification_1.default)({ message: 'A new property listed !' });
     return newProperty;
 });
 const getSingleProperty = (id) => __awaiter(void 0, void 0, void 0, function* () {
